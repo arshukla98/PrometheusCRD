@@ -3,4 +3,14 @@ layout:
 - go.kubebuilder.io/v3
 projectName: prometheuscrd
 repo: github.com/arshukla98/PrometheusCRD
+resources:
+- api:
+    crdVersion: v1
+    namespaced: true
+  controller: true
+  domain: core.example.com
+  group: monitoring
+  kind: PromCR
+  path: github.com/arshukla98/PrometheusCRD/api/v1
+  version: v1
 version: "3"

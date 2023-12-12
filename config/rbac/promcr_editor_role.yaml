@@ -1,0 +1,24 @@
+# permissions for end users to edit promcrs.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: promcr-editor-role
+rules:
+- apiGroups:
+  - monitoring.core.example.com
+  resources:
+  - promcrs
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - monitoring.core.example.com
+  resources:
+  - promcrs/status
+  verbs:
+  - get

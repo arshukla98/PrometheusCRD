@@ -1,0 +1,20 @@
+# permissions for end users to view promcrs.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: promcr-viewer-role
+rules:
+- apiGroups:
+  - monitoring.core.example.com
+  resources:
+  - promcrs
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - monitoring.core.example.com
+  resources:
+  - promcrs/status
+  verbs:
+  - get

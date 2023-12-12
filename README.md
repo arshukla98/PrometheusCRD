@@ -143,3 +143,94 @@ $ kubebuilder create api
 controlplane PrometheusCRD on  createCRD [✘!?] via 🐹 v1.19 ➜  git restore setup.sh
 ```
 - You will notice the changes after applying 'git status'. Move these changes to staging area using 'git add .' and then commit. Later Push the committed changes.
+
+## Creating CRD, Custom Resource and Custom Controller
+
+- I faced certain issues while running "kubebuilder create api" so I would suggest to clone this repo in GOPATH/src. Here are the
+next steps.
+- Check your GOPATH. If is not set, set it to ~/go.
+```
+controlplane ~ ➜  echo $GOPATH
+
+controlplane ~ ➜  export GOPATH=~/go
+controlplane ~ ➜  echo $GOPATH
+/root/go
+```
+- Create 3 dirs under GOPATH namely bin, pkg and src. Change directory to src.
+```
+controlplane ~ ➜  mkdir -p go/bin go/pkg go/src
+controlplane ~ ➜  cd ~/go/src
+```
+- Create directory github.com/Github_Username under src.
+```
+controlplane ~/go/src ➜  mkdir -p github.com/arshukla98
+controlplane ~/go/src ➜  cd github.com/arshukla98
+```
+- Now clone the CRD repo in this dir. Switch to createCRD branch.
+```
+controlplane src/github.com/arshukla98 ➜  git clone https://github.com/arshukla98/PrometheusCRD.git
+Cloning into 'PrometheusCRD'...
+remote: Enumerating objects: 43, done.
+remote: Counting objects: 100% (43/43), done.
+remote: Compressing objects: 100% (37/37), done.
+remote: Total 43 (delta 4), reused 42 (delta 3), pack-reused 0
+Unpacking objects: 100% (43/43), 49.58 KiB | 1.38 MiB/s, done.
+
+controlplane src/github.com/arshukla98 ➜  cd PrometheusCRD
+
+controlplane PrometheusCRD on  main ➜  git checkout createCRD
+Branch 'createCRD' set up to track remote branch 'createCRD' from 'origin'.
+Switched to a new branch 'createCRD'
+
+controlplane PrometheusCRD on  createCRD via 🐹  v1.19 ➜
+```
+- Download the dependencies in GOPATH/pkg/mod folder shown below.
+```
+controlplane PrometheusCRD on  createCRD via 🐹  v1.19 ➜  go get ./...
+go: downloading sigs.k8s.io/controller-runtime v0.12.1
+go: downloading k8s.io/client-go v0.24.0
+go: downloading k8s.io/apimachinery v0.24.0
+....
+....
+go: warning: github.com/Azure/go-autorest/autorest/adal@v0.9.13: retracted by module author: retracted due to token refresh errors
+go: to switch to the latest unretracted version, run:
+        go get github.com/Azure/go-autorest/autorest/adal@latest
+```
+- Run one more command as said above.
+```
+controlplane PrometheusCRD on  createCRD via 🐹 v1.19 ➜  go get github.com/Azure/go-autorest/autorest/adal@latest
+go: downloading github.com/Azure/go-autorest/autorest v0.11.29
+go: downloading github.com/Azure/go-autorest/autorest/adal v0.9.23
+...
+...
+go: upgraded golang.org/x/text v0.3.7 => v0.7.0
+go: upgraded gopkg.in/yaml.v3 v3.0.0-20210107192922-496545a6307b => v3.0.1
+```
+- Make sure GO111MODULE is unset.
+```
+controlplane ~ ➜  echo $GO111MODULE
+```
+- In this step, create a golang schema for the custom resource. We'll create an API named PromCR in the monitoring group and version v1.
+```
+controlplane PrometheusCRD on  createCRD [!] via 🐹 v1.19 ➜  kubebuilder create api --group monitoring --version v1 --kind PromCR
+
+Create Resource [y/n]
+y
+Create Controller [y/n]
+y
+Writing kustomize manifests for you to edit...
+Writing scaffold for you to edit...
+api/v1/promcr_types.go
+controllers/promcr_controller.go
+Update dependencies:
+$ go mod tidy
+go: downloading github.com/onsi/gomega v1.18.1
+go: downloading github.com/onsi/ginkgo v1.16.5
+.....
+.....
+go: downloading golang.org/x/mod v0.6.0-dev.0.20220106191415-9b9b3d81d5e3
+/root/go/src/github.com/arshukla98/PrometheusCRD/bin/controller-gen object:headerFile="hack/boilerplate.go.txt" paths="./..."
+Next: implement your new API and generate the manifests (e.g. CRDs,CRs) with:
+$ make manifests
+```
+- The Above command generates various files, including the CRD definition, controller, and API type definition.
