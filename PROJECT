@@ -1,0 +1,6 @@
+domain: core.example.com
+layout:
+- go.kubebuilder.io/v3
+projectName: prometheuscrd
+repo: github.com/arshukla98/PrometheusCRD
+version: "3"

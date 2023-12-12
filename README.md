@@ -89,3 +89,57 @@ controlplane PrometheusCRD on  createCRD [?] via 🐹 v1.19 ➜  git commit 
 - Push the branch to Remote Repo. Make Sure you have mention Gihub USERNAME and Personal Access Token as Password.
 ```
 controlplane PrometheusCRD on  createCRD [?] via 🐹 v1.19 ➜  git push -u origin createCRD
+```
+
+## Initializing Kubernetes Project
+- Clone the Repository
+```
+controlplane ~ ✦ ➜  git clone https://github.com/arshukla98/PrometheusCRD.git
+Cloning into 'PrometheusCRD'...
+remote: Enumerating objects: 4, done.
+remote: Counting objects: 100% (4/4), done.
+remote: Compressing objects: 100% (4/4), done.
+remote: Total 4 (delta 0), reused 4 (delta 0), pack-reused 0
+Unpacking objects: 100% (4/4), 1.45 KiB | 1.45 MiB/s, done.
+controlplane ~ ✦ ➜  cd PrometheusCRD
+```
+- Check If there are any changes. I hope not.
+```
+controlplane PrometheusCRD on  main via 🐹 v1.19➜  git status
+On branch main
+Your branch is up to date with 'origin/main'.
+nothing to commit, working tree clean
+```
+- Change branch to createCRD.
+```
+controlplane PrometheusCRD on  main via 🐹 v1.19➜  git checkout createCRD
+Switched to branch 'createCRD'
+Your branch is up to date with 'origin/createCRD'.
+```
+- Note the KubeBuilder Version.
+```
+controlplane PrometheusCRD on  createCRD via 🐹 v1.19 ➜  kubebuilder version
+Version: main.version{KubeBuilderVersion:"3.5.0", KubernetesVendor:"1.24.1", GitCommit:"26d12ab1134964dbbc3f68877ebe9cf6314e926a", BuildDate:"2022-06-24T12:17:52Z", GoOs:"linux", GoArch:"amd64"}
+```
+- Remove setup.sh file if present. 
+```
+controlplane PrometheusCRD on  createCRD via 🐹 v1.19 ➜ rm setup.sh
+```
+-  Initializes a Kubernetes project using the Kubebuilder framework and sets the domain for your project to "core.example.com." This domain typically represents the root domain for your Kubernetes Custom Resource Definitions (CRDs) and can help identify your custom resources in a cluster.
+```
+controlplane PrometheusCRD on  createCRD via 🐹 v1.19 ➜  kubebuilder init --domain core.example.com
+Writing kustomize manifests for you to edit...
+Writing scaffold for you to edit...
+Get controller runtime:
+$ go get sigs.k8s.io/controller-runtime@v0.12.1
+......
+go: downloading github.com/nxadm/tail v1.4.8
+go: downloading gopkg.in/tomb.v1 v1.0.0-20141024135613-dd632973f1e7
+Next: define a resource with:
+$ kubebuilder create api
+```
+- Restore setup.sh via git restore.
+```
+controlplane PrometheusCRD on  createCRD [✘!?] via 🐹 v1.19 ➜  git restore setup.sh
+```
+- You will notice the changes after applying 'git status'. Move these changes to staging area using 'git add .' and then commit. Later Push the committed changes.
