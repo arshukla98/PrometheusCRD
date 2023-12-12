@@ -28,19 +28,24 @@ type PromCRSpec struct {
 	// INSERT ADDITIONAL SPEC FIELDS - desired state of cluster
 	// Important: Run "make" to regenerate code after modifying this file
 
-	// Foo is an example field of PromCR. Edit promcr_types.go to remove/update
-	Foo string `json:"foo,omitempty"`
+  Name string `json:"name"`
+  Age string `json:"age"`
 }
 
 // PromCRStatus defines the observed state of PromCR
 type PromCRStatus struct {
 	// INSERT ADDITIONAL STATUS FIELD - define observed state of cluster
 	// Important: Run "make" to regenerate code after modifying this file
+
+  State string `json:"state"`
+  Allowed bool `json:"isAllowed"`
 }
 
 //+kubebuilder:object:root=true
 //+kubebuilder:subresource:status
 
+// +genclient
+// +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 // PromCR is the Schema for the promcrs API
 type PromCR struct {
 	metav1.TypeMeta   `json:",inline"`
@@ -52,6 +57,7 @@ type PromCR struct {
 
 //+kubebuilder:object:root=true
 
+// +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 // PromCRList contains a list of PromCR
 type PromCRList struct {
 	metav1.TypeMeta `json:",inline"`

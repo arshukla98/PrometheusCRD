@@ -234,3 +234,5 @@ Next: implement your new API and generate the manifests (e.g. CRDs,CRs) with:
 $ make manifests
 ```
 - The Above command generates various files, including the CRD definition, controller, and API type definition.
+- Now change the golang schema as shown in folder 'api/v1/promcr_types.go'. Change as per your wish and commit the changes.
+
