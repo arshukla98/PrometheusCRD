@@ -235,4 +235,16 @@ $ make manifests
 ```
 - The Above command generates various files, including the CRD definition, controller, and API type definition.
 - Now change the golang schema as shown in folder 'api/v1/promcr_types.go'. Change as per your wish and commit the changes.
+- Generate the manifests (e.g. CRDs,CRs)
+```
+controlplane PrometheusCRD on  createCRD [?⇡] via 🐹 v1.19 ➜  make manifests
+/root/go/src/github.com/arshukla98/PrometheusCRD/bin/controller-gen rbac:roleName=manager-role crd webhook paths="./..." output:crd:artifacts:config=config/crd/bases
+
+controlplane PrometheusCRD on  createCRD [?⇡] via 🐹 v1.19 ➜ 
+```
+- You will notice that a CRD YAML is created at the location 'config/crd/bases' and its name is 'monitoring.core.example.com_promcrs.yaml'.
+```
+controlplane PrometheusCRD on  createCRD [!?] via 🐹 v1.19 ➜  ls config/crd/bases/
+monitoring.core.example.com_promcrs.yaml
+```
 

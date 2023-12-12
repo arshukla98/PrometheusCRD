@@ -1,0 +1,61 @@
+---
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  annotations:
+    controller-gen.kubebuilder.io/version: v0.9.0
+  creationTimestamp: null
+  name: promcrs.monitoring.core.example.com
+spec:
+  group: monitoring.core.example.com
+  names:
+    kind: PromCR
+    listKind: PromCRList
+    plural: promcrs
+    singular: promcr
+  scope: Namespaced
+  versions:
+  - name: v1
+    schema:
+      openAPIV3Schema:
+        description: PromCR is the Schema for the promcrs API
+        properties:
+          apiVersion:
+            description: 'APIVersion defines the versioned schema of this representation
+              of an object. Servers should convert recognized schemas to the latest
+              internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources'
+            type: string
+          kind:
+            description: 'Kind is a string value representing the REST resource this
+              object represents. Servers may infer this from the endpoint the client
+              submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds'
+            type: string
+          metadata:
+            type: object
+          spec:
+            description: PromCRSpec defines the desired state of PromCR
+            properties:
+              age:
+                type: string
+              name:
+                type: string
+            required:
+            - age
+            - name
+            type: object
+          status:
+            description: PromCRStatus defines the observed state of PromCR
+            properties:
+              isAllowed:
+                type: boolean
+              state:
+                type: string
+            required:
+            - isAllowed
+            - state
+            type: object
+        type: object
+    served: true
+    storage: true
+    subresources:
+      status: {}
