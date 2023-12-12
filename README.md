@@ -247,4 +247,28 @@ controlplane PrometheusCRD on  createCRD [?⇡] via 🐹 v1.19 ➜
 controlplane PrometheusCRD on  createCRD [!?] via 🐹 v1.19 ➜  ls config/crd/bases/
 monitoring.core.example.com_promcrs.yaml
 ```
+## Apply The CRDs and Create a Custom Resource.
+
+- Verify the CRD is present or not.
+```
+controlplane PrometheusCRD on  createCRD [!] via 🐹  v1.19 ➜  kubectl api-resources | grep Prom
+
+```
+- Apply the CRD as shown below.
+```
+controlplane PrometheusCRD on  createCRD [!] via 🐹  v1.19 ✖ kubectl apply -f config/crd/bases/monitoring.core.example.com_promcrs.yaml
+customresourcedefinition.apiextensions.k8s.io/promcrs.monitoring.core.example.com created
+```
+- Now verify the CRD is present or not.
+```
+controlplane PrometheusCRD on  createCRD [!] via 🐹  v1.19 ➜  kubectl api-resources | grep Prom
+promcrs                                        monitoring.core.example.com/v1         true         PromCR
+```
+- Get the Persona Objects
+```
+controlplane PrometheusCRD on  createCRD [!] via 🐹  v1.19 ➜  kubectl get promcr
+No resources found in default namespace.
+
+controlplane PrometheusCRD on  createCRD [!] via 🐹  v1.19 ➜ 
+```
 
